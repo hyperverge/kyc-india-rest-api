@@ -1,8 +1,8 @@
 # HyperVerge Documents - API Documentation
 
-#### Overview
+## Overview
 
-This documentation describes hyperdocs API v1. If you have any queries please contact support.
+This documentation describes hyperdocs API v1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/2841e059b5c4e2457090)
 
 1. Schema
 1. Parameters
@@ -15,21 +15,21 @@ This documentation describes hyperdocs API v1. If you have any queries please co
 3. API wrappers and sample code snippets (Beta) 
 
 
-### Schema
+## Schema
 
 We recommend using HTTPS for all API access. All data is received as JSON, and all image uploads are to be performed as form-data (POST request). Incase of a pdf file input, the key name has to be `pdf` and in all other cases, the key name for the image could be anything apart from `pdf`.
 
-### Parameters
+## Parameters
 All optional and compulsory parameters are passed as part of the request body.
 
-### Root Endpoint
+## Root Endpoint
 A `GET` request can be issued to the root endpoint to check for successful connection : 
 
 	 curl https://docs.hyperverge.co/v1 
 
 The `plain/text` reponse of `"AoK!"` should be received.
 
-### Authentication
+## Authentication
 
 Currently, a simple appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
 
@@ -52,7 +52,7 @@ On failed attempt with invalid credentials or unauthorized access the following 
 
 Please donot expose the appid and appkey on browser applications. In case of a browser application, set up the API calls from the server side.
 
-### Media Types
+## Media Types
 
 Currently, `jpeg, png and tiff` images and `pdf` are supported by the HyperDocs image extraction APIs. 
 
@@ -73,9 +73,8 @@ Currently, `jpeg, png and tiff` images and `pdf` are supported by the HyperDocs 
 		  -F 'pdf=@image_path.pdf'
 
 
-### Supported APIs
+## Supported APIs
 
-----------
 
 
 Can be used to extract information from any or one of the supported documents depending on the endpoint.
@@ -115,51 +114,51 @@ Can be used to extract information from any or one of the supported documents de
 		}
 		```
 		
-The `resultObject` has the following Schema : 
+		The `resultObject` has the following Schema : 
 
-		[{
-			details : {
-				"field-1" : "value-1",
-				"field-2" : "value-2",
-				"field-3" : "value-3",
-				..
-			},
-			type : "kyc_type"
-		}]
+			[{
+				details : {
+					"field-1" : "value-1",
+					"field-2" : "value-2",
+					"field-3" : "value-3",
+					..
+				},
+				type : "kyc_type"
+			}]
 	
 * **Error Response:**
 
-There are 3 types of request errors and `HTTP Status Code 400` is returned in all 3 cases:
-
-1. No Image input
+	There are 3 types of request errors and `HTTP Status Code 400` is returned in all 3 cases:
 	
-		{
-		  "status": "failure",
-		  "statusCode": "400",
-		  "error": "API call requires one input image"
-		}
+	1. No Image input
 		
-
-2. More than 1 image input
-
-		{
-		  "status": "failure",
-		  "statusCode": "400",
-		  "error": "API call handles only one input image"
-		}
-
-3. Larger than allowed image input
-		
-		{
-		  "status": "failure",
-		  "statusCode": "400",
-		  "error": "image size cannot be greater than 6MB"
-		}
-		
-All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
-
-**Server Errors**
-We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
+			{
+			  "status": "failure",
+			  "statusCode": "400",
+			  "error": "API call requires one input image"
+			}
+			
+	
+	2. More than 1 image input
+	
+			{
+			  "status": "failure",
+			  "statusCode": "400",
+			  "error": "API call handles only one input image"
+			}
+	
+	3. Larger than allowed image input
+			
+			{
+			  "status": "failure",
+			  "statusCode": "400",
+			  "error": "image size cannot be greater than 6MB"
+			}
+			
+	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
+	
+	**Server Errors**
+	We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
 
 
 * **Sample Calls:**
@@ -205,7 +204,7 @@ We try our best to avoid these errors, but if by chance they do occur the respon
 		  -F 'image=@image_path.png'
 	```	  
 		  
-#### Supported kyc_types 
+## Supported kyc_types 
 
 |Types|Fields|
 ---|---
@@ -220,7 +219,7 @@ We try our best to avoid these errors, but if by chance they do occur the respon
 |voterid\_front\_new| voterid, name, father, husband, mother, relation
 |voterid_back| voterid, type ,pin , address, gender, date, dob, age
 
-### Optional parameters
+## Optional parameters
 
 Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. 
 
