@@ -2,7 +2,7 @@
 
 ## Overview
 
-This documentation describes hyperdocs API v1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/2841e059b5c4e2457090)
+This documentation describes hyperdocs API v1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/2841e059b5c4e2457090).
 
 1. Schema
 1. Parameters
@@ -99,6 +99,7 @@ Can be used to extract information from any or one of the supported documents de
 * **Request Body**
 
 	- image or pdf
+	- conf - optional parameter, to be set to "yes" if needed.
   
 * **Success Response:**
 
@@ -221,11 +222,12 @@ Can be used to extract information from any or one of the supported documents de
 
 ## Optional parameters
 
-Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. 
+
 
 | parameter | value| default| description |
 |---|:---:|:---:|---|
-| outputImageUrl| yes/no | no | If set to "yes" `string`, a signed temporary url be will generated. The output image will be cropped to contain only the region of interest in the image, the document will also be aligned.|
+| outputImageUrl| yes/no | no | If set to "yes" `string`, a signed temporary url be will generated. The output image will be cropped to contain only the region of interest in the image, the document will also be aligned.Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. |
+|conf|yes/no|no|If set to "yes"(`string`), a confidence score is returned as part of the output for all fields. For any field with key \<field-name> extracted from the document, the confidence score would be reported with the key as  \<field-name>_conf. The score would be a float value between 0 and 1. The optimal threshold for the confidence score is 0.7, if confidence is reported to be less than this threshold value, manual review might be required based on the use case.|
 
 ### API wrappers and sample code snippets (Beta)
 1. [Python](samples/python/)
