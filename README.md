@@ -168,6 +168,46 @@ Can be used to extract information from any or one of the supported documents de
 			  "statusCode": "400",
 			  "error": "image size cannot be greater than 6MB"
 			}
+	4. KYC Document not detected from Image
+		- readKYC:
+		
+			```
+			{
+			  "status": "failure",
+			  "statusCode": 400,
+			  "error": "No supported KYC documents detected"
+			}
+			```
+			
+		- readPAN:
+		
+			```
+			{
+			  "status": "failure",
+			  "statusCode": 400,
+			  "error": "No Pancard detected"
+			}
+			```
+			
+		- readAadhaar:
+		
+			```
+			{
+			  "status": "failure",
+			  "statusCode": 400,
+			  "error": "No Aadhaar detected"
+			}
+			```
+			
+		- readPassport:
+		
+			```
+			{
+			  "status": "failure",
+			  "statusCode": 400,
+			  "error": "No Passport detected"
+			}
+			```
 			
 	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
 	
