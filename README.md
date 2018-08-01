@@ -142,7 +142,7 @@ Can be used to extract information from any or one of the supported documents de
 	
 * **Error Response:**
 
-	There are 3 types of request errors and `HTTP Status Code 400` is returned in all 3 cases:
+	There are multiple types of request errors and `HTTP Status Code 400` is returned in all of these cases:
 	
 	1. No Image input
 		
@@ -208,6 +208,13 @@ Can be used to extract information from any or one of the supported documents de
 			  "error": "No Passport detected"
 			}
 			```
+	5. Downloading input image/pdf from URL timed out
+	
+			{
+			  "status": "failure",
+			  "statusCode": "400",
+			  "error": "Download from URL timed out"
+			}
 			
 	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
 	
