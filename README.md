@@ -208,13 +208,27 @@ Can be used to extract information from any or one of the supported documents de
 			  "error": "No Passport detected"
 			}
 			```
-	5. Downloading input image/pdf from URL timed out
+	5. Downloading input image/pdf from URL Failed
+	
+			{
+			  "status": "failure",
+			  "statusCode": "400",
+			  "error": "Download from URL Failed"
+			}
+		This error response is returned only when `url` input is provided. This is returned when
+		 - Invalid `url` is provided.
+		 - Remote end is unreachable.
+		 - Remote end resets connection etc.
+			
+	6. Downloading input image/pdf from URL timed out 
 	
 			{
 			  "status": "failure",
 			  "statusCode": "400",
 			  "error": "Download from URL timed out"
 			}
+			
+		This error response is returned only when `url` input is provided. Currently, timeout is set as **5 seconds**. This is returned when it takes more than 5 seconds to establish connection and receive the data from the remote end hosting the `url`.
 			
 	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
 	
