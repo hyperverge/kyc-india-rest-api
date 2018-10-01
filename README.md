@@ -298,7 +298,7 @@ Can be used to extract information from any or one of the supported documents de
 ## Supported kyc_types 
 |Types|Fields|
 ---|---
-|pan| date, father, name, pan_no
+|pan| date, father, name, pan_no, date_of_issue
 |old_pan| date, father, name, pan_no
 |aadhaar_front\_bottom| aadhaar, dob, father, gender, mother, name, yob
 |aadhaar_front\_top| aadhaar, address, address_split, father, husband, name, phone, pin
@@ -316,6 +316,7 @@ Can be used to extract information from any or one of the supported documents de
 	  father: <type: String, description: Father's name of the holder>,
 	  name: <type: String, description: Name of the Holder>,
 	  pan_no: <type: String, description: PAN No of the Holder>
+	  date_of_issue: <type:String description: Date of Issue of PAN card>
 	  ```
 	- type: **old_pan**
 	
