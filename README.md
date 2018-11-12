@@ -1,19 +1,27 @@
-# HyperVerge Documents - API Documentation
+
+# HyperVerge India KYC API Documentation
 
 ## Overview
 
-This documentation describes hyperdocs API v1-1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/d4ed2fc6f5f2469479a2).
+This documentation describes hyperdocs API v1-1. The postman collection can be found at this [link](https://www.getpostman.com/collections/78cb821137888e422a13).
 
-1. Schema
-2. Parameters
-3. Root Endpoint
-4. Authentication
-5. Media Types
-6. Input Image Constraints
-7. Supported Endpoints
-8. Supported kyc_types 
-9. Optional Parameters
-10. API wrappers and sample code snippets (Beta) 
+- [HyperVerge India KYC API Documentation](#hyperverge-india-kyc-api-documentation)
+	- [Overview](#overview)
+	- [Schema](#schema)
+	- [Parameters](#parameters)
+	- [Header](#header)
+	- [Root Endpoint](#root-endpoint)
+	- [Authentication](#authentication)
+	- [Media Types](#media-types)
+	- [Input Image Constraints](#input-image-constraints)
+	- [API Call Structure](#api-call-structure)
+	- [Response Structure](#response-structure)
+	- [Sample Code](#sample-code)
+	- [Supported Document Types](#supported-document-types)
+		- [Explanation of Fields in Response](#explanation-of-fields-in-response)
+		- [Understanding Confidence](#understanding-confidence)
+	- [Optional parameters](#optional-parameters)
+	- [API wrappers and sample code (Beta)](#api-wrappers-and-sample-code-beta)
 
 
 ## Schema
@@ -22,6 +30,10 @@ We recommend using HTTPS for all API access. All data is received as JSON, and a
 
 ## Parameters
 All optional and compulsory parameters are passed as part of the request body.
+
+## Header
+
+Only 'appId', 'appKey' and 'content-type' should be passed as part of the header.
 
 ## Root Endpoint
 A `GET` request can be issued to the root endpoint to check for successful connection: 
@@ -34,7 +46,7 @@ The `plain/text` reponse of `"AoK!"` should be received.
 
 Currently, a simple appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
 
-	curl -X POST https://docs.hyperverge.co/v1-1/readKYC \
+	curl -X POST https://ind.docs.hyperverge.co/v1-1/readKYC \
 	  -H 'appid: xxx' \
 	  -H 'appkey: yyy' \
 	  -H 'content-type: multipart/form-data;' \
@@ -90,7 +102,7 @@ Please note that while using public url mechanism for extraction, the input imag
 - For our DL server to extract text from the document, the aspect ratio of the input image should be same as the aspect ratio of the original document. Hence utmost care should be taken while resizing the image to maintain the aspect ratio
 - If integrating into a native Android or iOS app, please use the HyperSnap SDK for [Android](https://github.com/hyperverge/capture-android-sdk) and [iOS](https://github.com/hyperverge/capture-ios-sdk). This SDK provides camera functionality for capturing an image of the ID card while taking care all of the above points 
 
-## Supported APIs
+## API Call Structure
 
 
 Can be used to extract information from any or one of the supported documents depending on the endpoint.
@@ -116,6 +128,9 @@ Can be used to extract information from any or one of the supported documents de
 
 	1. image or pdf: content of the image/pdf; OR
 	2. url: public url for image or pdf 
+
+  
+## Response Structure
   
 * **Success Response:**
 
@@ -232,13 +247,13 @@ Can be used to extract information from any or one of the supported documents de
 			
 	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
 	
-	**Server Errors**
+* **Server Errors**
 	We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
 
 
-* **Sample Calls:**
+## Sample Code
 
- - readKYC
+ - **readKYC**
     
 	    curl -X POST https://ind.docs.hyperverge.co/v1-1/readKYC \
 			  -H 'appid: xxx' \
@@ -253,7 +268,7 @@ Can be used to extract information from any or one of the supported documents de
 			  -F 'url=https://document_pdf_or_image_url'
   
 
- - readPAN
+ - **readPAN**
 
 	    curl -X POST https://ind.docs.hyperverge.co/v1-1/readPAN \
 		  -H 'appid: xxx' \
@@ -267,7 +282,7 @@ Can be used to extract information from any or one of the supported documents de
 		  -H 'content-type: multipart/form-data;' \
 		  -F 'url=https://pan_pdf_or_image_url'
 
- - readAadhaar	
+ - **readAadhaar**	
 	
 		curl -X POST https://ind.docs.hyperverge.co/v1-1/readAadhaar \
 			  -H 'appid: xxx' \
@@ -281,7 +296,7 @@ Can be used to extract information from any or one of the supported documents de
 			  -H 'content-type: multipart/form-data;' \
 			  -F 'url=https://aadhaar_image_or_pdf_url'
 
- - readPassport
+ - **readPassport**
 	
 		curl -X POST https://ind.docs.hyperverge.co/v1-1/readPassport \
 			  -H 'appid: xxx' \
@@ -295,7 +310,7 @@ Can be used to extract information from any or one of the supported documents de
 			  -H 'content-type: multipart/form-data;' \
 			  -F 'url=https://passport_image_or_pdf_url'
 		  
-## Supported kyc_types 
+## Supported Document Types
 |Types|Fields|
 ---|---
 |pan| date, father, name, pan_no, date_of_issue
@@ -306,7 +321,7 @@ Can be used to extract information from any or one of the supported documents de
 |passport_front| country_code, dob, doe, doi, gender, given\_name, nationality, passport\_num, place\_of\_birth, place\_of\_issue, surname, type
 |passport_back| address, address\_split, father, file\_num, mother, old\_doi, old\_pasport\_num, old\_place\_of\_issue, pin, spouse
 
-### Explanation of Fields for Each Type:
+### Explanation of Fields in Response
 
 - #### Pan
 	- type: **pan**
@@ -412,16 +427,20 @@ Can be used to extract information from any or one of the supported documents de
 	  spouse: <type: String, description: Spouse name of the holder>
 	  ```
 		
-- ### Understanding Confidence
-	For any field with key \<field-name> extracted from the document, the confidence score would be reported with the key as  \<field-name>_conf. The score would be a float value between 0 and 1. The optimal threshold for the confidence score is 0.7, if confidence is reported to be less than this threshold value, manual review might be required based on the use case.
+ #### Understanding Confidence
+For any field with key \<field-name> extracted from the document, the confidence score would be reported with the key as  \<field-name>_conf. The score would be a float value between 0 and 1. The optimal threshold for the confidence score is 0.7, if confidence is reported to be less than this threshold value, manual review might be required based on the use case.
 
 ## Optional parameters
 
+Following are optional parameters that could be set as part of the request body.
+
 | parameter | value| default| description |
 |---|:---:|:---:|---|
-| outputImageUrl| yes/no | no | If set to "yes" `string`, a signed temporary url be will generated. The output image will be cropped to contain only the region of interest in the image, the document will also be aligned.Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. |
+| outputImageUrl| "yes"/"no" | "no" | If set to "yes" `string`, a signed temporary url be will generated. The output image will be cropped to contain only the region of interest in the image, the document will also be aligned.Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. |
+| dataLogging| "yes"/"no" | "no" | By default, the input images are not stored by HyperVerge systems, however, if the 'dataLogging' parameter is set to "yes", then the images will be stored and the requestId can be provided to HyperVerge to check the uploaded image incase of an inaccurate extraction.|
+|clientId|String|null|`clientId` is a unique identifier that could be assigned to the end customer by the API user for analytics purpose. This parameter would be the same for the different API calls made for the same customer.|
 
-## API wrappers and sample code snippets (Beta)
+## API wrappers and sample code (Beta)
 1. [Python](samples/python/)
 2. [Node.js](samples/node.js/)
 3. [Java](samples/java)
