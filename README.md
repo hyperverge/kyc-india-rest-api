@@ -114,6 +114,8 @@ Can be used to extract information from any or one of the supported documents de
   - /readPassport : used for Indian passports alone, would have a higher accuracy than readKYC on Indian Passports
   - /readAadhaar : used for aadhaar cards alone, would have a higher accuracy than readKYC on Aadhaar cards
   
+*Please note*: At this time, voterID OCR can be done only with '/readKYC'
+  
 * **Method:**
 
     `POST`
@@ -320,6 +322,9 @@ Can be used to extract information from any or one of the supported documents de
 |aadhaar_back| aadhaar, address, address_split, father, husband, pin
 |passport_front| country_code, dob, doe, doi, gender, given\_name, nationality, passport\_num, place\_of\_birth, place\_of\_issue, surname, type
 |passport_back| address, address\_split, father, file\_num, mother, old\_doi, old\_pasport\_num, old\_place\_of\_issue, pin, spouse
+|voterid_front|name, voterid, dob, gender, doc, relation, age
+|voterid_front_new|name, voterid, relation
+|voterid_back|voterid, pin, address, type, gender, date, dob, age
 
 ### Explanation of Fields in Response
 
@@ -390,7 +395,7 @@ Can be used to extract information from any or one of the supported documents de
 	  pin: <type: String, description: Pincode of the holder's Address>
 	  ```
 - #### Passport
-	- type: **passport_front**
+	- type: **passport\_front**
 	
 	  ```
 	  country_code: <type: String, description: Country Code of the holder's Passport>,
@@ -406,7 +411,7 @@ Can be used to extract information from any or one of the supported documents de
 	  surname: <type: String, description: Surname of the holder>,
 	  type: <type: String, description: Type of Passport>
 	  ```
-	- type: **passport_back**
+	- type: **passport\_back**
 	
 	  ```
 	  address: <type: String, description: Address of the holder>,
@@ -425,6 +430,40 @@ Can be used to extract information from any or one of the supported documents de
 	  old_place_of_issue: <type: String, description: Place of Issue of old Passport>,
 	  pin: <type: String, description: Pincode of the Address of the holder>,
 	  spouse: <type: String, description: Spouse name of the holder>
+	  ```
+
+- #### Voter ID
+	- type: **voterid\_front**
+	
+	  ```
+	  voterid: <type:String, description: VoterID of Holder>,
+	  name: <type:String, description: Name of Holder>,
+	  gender: <type:String, description:Gender of Holder>,
+	  relation: <type:String, description: Name of relative's Holder>,
+	  dob: <type:String, description: Date of Birth of Holder >,
+	  doc: <type:String, description: Date of Calculation of Age>,
+	  age: <type:String, description: Age of user as on doc>
+	  ```
+
+	- type: **voterid\_front\_new**
+	
+	  ```
+	  voterid: <type:String, description: VoterID of Holder>,
+	  name: <type:String, description: Name of Holder>,
+	  relation: <type:String, description: Name of relative's Holder>
+	  ```
+
+	- type: **voterid\_back**
+	
+	  ```
+	  voterid: <type:String, description: VoterID of Holder>,
+	  name: <type:String, description: Name of Holder>,
+	  gender: <type:String, description:Gender of Holder>
+	  pin: <type:String, description: PIN Code of Holder>,
+	  dob: <type:String, description: Date of Birth of Holder >,
+	  date: <type:String, description: Date of Issue of VoterID>,
+	  age: <type:String, description: Age of user as of date of issue>,
+	  type: <type:String, description: Type of VoterID: Old/New>
 	  ```
 		
  #### Understanding Confidence
