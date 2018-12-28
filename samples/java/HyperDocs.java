@@ -2,7 +2,7 @@ import org.json.*;
 import java.io.*;
 
 public class HyperDocs{
-	private final String SERVER_PATH = "https://docs.hyperverge.co/v1/";
+	private final String SERVER_PATH = "https://docs.hyperverge.co/v2.0/";
 
 	private String appId, appKey;
 

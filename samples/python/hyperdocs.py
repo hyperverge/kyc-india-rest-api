@@ -6,7 +6,7 @@ import json
 with open('config.json', 'r') as f:
  config = json.load(f)
 
-url = "https://docs.hyperverge.co/v1/"
+url = "https://docs.hyperverge.co/v2.0/"
 
 
 appId = config['appId']

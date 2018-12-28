@@ -18,7 +18,7 @@ function requestFn(filePath, fileType, endPoint, cb){
     formData[fileType] = fs.createReadStream(filePath);
 
 	request({
-		url: 'https://docs.hyperverge.co/v1/'+endPoint,
+		url: 'https://docs.hyperverge.co/v2.0/'+endPoint,
 		method: 'POST',
 		formData: formData,
 		headers: {
