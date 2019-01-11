@@ -38,7 +38,7 @@ Only 'appId', 'appKey' and 'content-type' should be passed as part of the header
 ## Root Endpoint
 A `GET` request can be issued to the root endpoint to check for successful connection: 
 
-	 curl https://ind.docs.hyperverge.co/v2.0 
+	 curl https://ind-docs.hyperverge.co/v2.0 
 
 The `plain/text` reponse of `"AoK!"` should be received.
 
@@ -46,7 +46,7 @@ The `plain/text` reponse of `"AoK!"` should be received.
 
 Currently, a simple appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
 
-	curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+	curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 	  -H 'appid: xxx' \
 	  -H 'appkey: yyy' \
 	  -H 'content-type: multipart/form-data;' \
@@ -71,7 +71,7 @@ Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the 
 
 1. `/readKYC` on an image
 	
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;\
@@ -79,7 +79,7 @@ Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the 
 
 2. `/readKYC` on a pdf
 	
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;\
@@ -87,7 +87,7 @@ Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the 
 		  
 3. `/readKYC` using a public url
 
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;\
@@ -275,13 +275,13 @@ Can be used to extract information from any or one of the supported documents de
 
  - **readKYC**
     
-	    curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+	    curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
 			  -F 'image=@image_path.png'
 
-	    curl -X POST https://ind.docs.hyperverge.co/v2.0/readKYC \
+	    curl -X POST https://ind-docs.hyperverge.co/v2.0/readKYC \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
@@ -290,13 +290,13 @@ Can be used to extract information from any or one of the supported documents de
 
  - **readPAN**
 
-	    curl -X POST https://ind.docs.hyperverge.co/v2.0/readPAN \
+	    curl -X POST https://ind-docs.hyperverge.co/v2.0/readPAN \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;' \
 		  -F 'image=@image_path.png'
 
-	    curl -X POST https://ind.docs.hyperverge.co/v2.0/readPAN \
+	    curl -X POST https://ind-docs.hyperverge.co/v2.0/readPAN \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;' \
@@ -304,13 +304,13 @@ Can be used to extract information from any or one of the supported documents de
 
  - **readAadhaar**	
 	
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readAadhaar \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readAadhaar \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
 			  -F 'image=@image_path.png'
 
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readAadhaar \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readAadhaar \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
@@ -318,13 +318,13 @@ Can be used to extract information from any or one of the supported documents de
 
  - **readPassport**
 	
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readPassport \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readPassport \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
 			  -F 'image=@image_path.png'
 
-		curl -X POST https://ind.docs.hyperverge.co/v2.0/readPassport \
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readPassport \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
