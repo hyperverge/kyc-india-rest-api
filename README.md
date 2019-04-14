@@ -3,13 +3,11 @@
 
 ## Overview
 
-This documentation describes hyperdocs API v2.0. The postman collection can be found at this [link](https://www.getpostman.com/collections/d4ed2fc6f5f2469479a2).
+This documentation describes KYC India API v2.0. The postman collection can be found at this [link](https://www.getpostman.com/collections/d4ed2fc6f5f2469479a2).
 
 - [HyperVerge India KYC API Documentation](#hyperverge-india-kyc-api-documentation)
 	- [Overview](#overview)
 	- [Schema](#schema)
-	- [Parameters](#parameters)
-	- [Header](#header)
 	- [Root Endpoint](#root-endpoint)
 	- [Authentication](#authentication)
 	- [Media Types](#media-types)
@@ -18,22 +16,13 @@ This documentation describes hyperdocs API v2.0. The postman collection can be f
 	- [Response Structure](#response-structure)
 	- [Sample Code](#sample-code)
 	- [Supported Document Types](#supported-document-types)
-		- [Explanation of Fields in Response](#explanation-of-fields-in-response)
-		- [Understanding Confidence](#understanding-confidence)
+		- [Response Details Schema](#response-details-schema)
 	- [Optional parameters](#optional-parameters)
 	- [API wrappers and sample code (Beta)](#api-wrappers-and-sample-code-beta)
 
 
 ## Schema
-
 We recommend using HTTPS for all API access. All data is received as JSON, and all image uploads are to be performed as form-data (POST request). Incase of a pdf file input, the key name has to be `pdf` and in all other cases, the key name for the image could be anything apart from `pdf`.
-
-## Parameters
-All optional and compulsory parameters are passed as part of the request body.
-
-## Header
-
-Only 'appId', 'appKey' and 'content-type' should be passed as part of the header.
 
 ## Root Endpoint
 A `GET` request can be issued to the root endpoint to check for successful connection: 
@@ -53,21 +42,19 @@ Currently, a simple appId, appKey combination is passed in the request header. T
 	  -F 'image=@abc.png' 
 
 
-On failed attempt with invalid credentials or unauthorized access the following error message should be received :
+On failed attempt with invalid credentials or unauthorized access the following error message will be received :
 
 	{
 	  "status": "failure",
 	  "statusCode": "401",
-	  "error": {
-	    "developerMessage": "unauthorized",
-	  }
+	  "error": "Missing/Invalid credentials"
 	}
 
-Please do not expose the appid and appkey on browser applications. In case of a browser application, set up the API calls from the server side.
+Please do not expose the appId and appKey on browser applications. In case of a browser application, set up the API calls from the server side.
 
 ## Media Types
 
-Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the HyperDocs image extraction APIs. 
+Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the APIs. 
 
 1. `/readKYC` on an image
 	
@@ -96,24 +83,21 @@ Currently, `jpeg, png and tiff` images and `pdf` documents are supported by the 
 Please note that while using public url mechanism for extraction, the input image type (pdf or image) need not be specified
 
 ## Input Image Constraints
-- For the DL servers to extract text out of an image, the rule of thumb that needs to be followed is that the text in the image should be legible
+- For the deep learning servers to extract text out of an image, the rule of thumb that needs to be followed is that the text in the image should be legible
 - Higher size of image will lead to higher upload and processing time. Hence the size of image should be reduced as much as possible while ensuring that above condition is met
 - A general guideline that can be followed is to keep the width of the ID card image atleast 800 pixels and to keep JPEG compression quality factor above 80%
-- For our DL server to extract text from the document, the aspect ratio of the input image should be same as the aspect ratio of the original document. Hence utmost care should be taken while resizing the image to maintain the aspect ratio
-- If integrating into a native Android or iOS app, please use the HyperSnap SDK for [Android](https://github.com/hyperverge/capture-android-sdk) and [iOS](https://github.com/hyperverge/capture-ios-sdk). This SDK provides camera functionality for capturing an image of the ID card while taking care all of the above points 
+- The aspect ratio of the input image should be same as the aspect ratio of the original document. Hence utmost care should be taken while resizing the image to maintain the aspect ratio
+- If integrating into an Android or iOS app, please use the HyperSnap SDK for [Android](https://github.com/hyperverge/capture-android-sdk) and [iOS](https://github.com/hyperverge/capture-ios-sdk). This SDK provides camera functionality for capturing images of ID cards while taking care of all the above requirements.
 
 ## API Call Structure
-
-
-Can be used to extract information from any or one of the supported documents depending on the endpoint.
 
 * **URL**
 
   - /readKYC : used for any of the supported documents
-  - /readPAN : used for pan cards alone, would have a higher accuracy than readKYC on PAN
-  - /readPassport : used for Indian passports alone, would have a higher accuracy than readKYC on Indian Passports
-  - /readAadhaar : used for aadhaar cards alone, would have a higher accuracy than readKYC on Aadhaar cards
-  - /readVoterID : used for Indian VoterID cards alone, would have a higher accuracy than readKYC on Indian VoterID cards
+  - /readPAN : used for pan cards alone.
+  - /readPassport : used for Indian passports alone
+  - /readAadhaar : used for aadhaar cards alone
+  - /readVoterID : used for Indian VoterID cards alone
   
 * **Method:**
 
@@ -122,8 +106,8 @@ Can be used to extract information from any or one of the supported documents de
 * **Header**
 	
 	- content-type : 'formdata'
-	- appid 
-	- appkey
+	- appId 
+	- appKey
 	
 * **Request Body**
 
@@ -136,7 +120,7 @@ Can be used to extract information from any or one of the supported documents de
 * **Success Response:**
 
   * **Code:** 200 <br />
-  * Incase of a properly made request, the response would follow schema.
+  * Incase of a properly made request, the response would follow this schema.
 
 		{
 			"status" : "success",
@@ -165,11 +149,14 @@ Can be used to extract information from any or one of the supported documents de
 			"type" : "kyc_type"
 		}]
 	Apart from the schema mentioned above, `fields` in  `details` object might have some extra information based on niche information of the field. For more details, please refer to the [**Response Details Schema**](#response-details-schema) section.
+	
 * **Error Response:**
 
-	There are multiple types of request errors and `HTTP Status Code 400` is returned in all of these cases:
+Following are the various errors possible. Please note that cases 1, 3 and 4 are applicable only for API integration and don't happen when the SDK is used.
+
+1. `HTTP Status Code 400` is returned for request errors. The following are the request errors possible:
 	
-	1. No Image input
+	- No Image input
 		
 			{
 			  "status": "failure",
@@ -177,8 +164,7 @@ Can be used to extract information from any or one of the supported documents de
 			  "error": "API call requires one input image"
 			}
 			
-	
-	2. More than 1 image input
+	- More than 1 image input
 	
 			{
 			  "status": "failure",
@@ -186,76 +172,67 @@ Can be used to extract information from any or one of the supported documents de
 			  "error": "API call handles only one input image"
 			}
 	
-	3. Larger than allowed image input
+	- Larger than allowed image input
 			
 			{
 			  "status": "failure",
 			  "statusCode": "400",
 			  "error": "image size cannot be greater than 6MB"
 			}
-	4. KYC Document not detected from Image
-		- readKYC:
+			
+2. KYC Document not detected from Image. HTTP Status code - 422
+	- readKYC:
 		
-			```
 			{
 			  "status": "failure",
 			  "statusCode": 422,
-			  "error": "No supported KYC documents detected"
+			  "error": "No supported KYC document detected"
 			}
-			```
 			
-		- readPAN:
+	- readPAN:
 		
-			```
 			{
 			  "status": "failure",
 			  "statusCode": 422,
 			  "error": "No Pancard detected"
 			}
-			```
 			
-		- readAadhaar:
+	- readAadhaar:
 		
-			```
 			{
 			  "status": "failure",
 			  "statusCode": 422,
 			  "error": "No Aadhaar detected"
 			}
-			```
 			
-		- readPassport:
+	- readPassport:
 		
-			```
 			{
 			  "status": "failure",
 			  "statusCode": 422,
 			  "error": "No Passport detected"
 			}
-			```
-		- readVoterID:
+	- readVoterID:
 		
-			```
 			{
 			  "status": "failure",
 			  "statusCode": 422,
 			  "error": "No VoterID detected"
 			}
-			```
-	5. Downloading input image/pdf from URL Failed
+3. Downloading input image/pdf from URL Failed
 	
 			{
 			  "status": "failure",
 			  "statusCode": "424",
 			  "error": "Download from URL Failed"
 			}
-		This error response is returned only when `url` input is provided. This is returned when
+	This error response is returned only when `url` input is provided. This is returned when
 		 - Url contains an invalid domain
 		 - Invalid `url` is provided.
 		 - Remote end is unreachable.
-		 - Remote end resets connection etc.
-			
-	6. Downloading input image/pdf from URL timed out 
+		 - Remote end resets connection etc.		
+. 
+4. Downloading input image/pdf from URL timed out 
 	
 			{
 			  "status": "failure",
@@ -263,13 +240,14 @@ Can be used to extract information from any or one of the supported documents de
 			  "error": "Download from URL timed out"
 			}
 			
-		This error response is returned only when `url` input is provided. Currently, timeout is set as **5 seconds**. This is returned when it takes more than 5 seconds to establish connection and receive the data from the remote end hosting the `url`.
-			
-	All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
-	
-* **Server Errors**
-	We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
+	This error response is returned only when `url` input is provided. Currently, timeout is set as **5 seconds**. 
 
+	
+
+5. Server Errors
+We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
+
+All error messages follow the same syntax with the statusCode, status and error(string) being part of the body.
 
 ## Sample Code
 
@@ -325,6 +303,20 @@ Can be used to extract information from any or one of the supported documents de
 			  -F 'image=@image_path.png'
 
 		curl -X POST https://ind-docs.hyperverge.co/v2.0/readPassport \
+			  -H 'appid: xxx' \
+			  -H 'appkey: yyyy' \
+			  -H 'content-type: multipart/form-data;' \
+			  -F 'url=https://passport_image_or_pdf_url'
+			  
+ - **readVoterID**
+	
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readVoterID \
+			  -H 'appid: xxx' \
+			  -H 'appkey: yyyy' \
+			  -H 'content-type: multipart/form-data;' \
+			  -F 'image=@image_path.png'
+
+		curl -X POST https://ind-docs.hyperverge.co/v2.0/readVoterID \
 			  -H 'appid: xxx' \
 			  -H 'appkey: yyyy' \
 			  -H 'content-type: multipart/form-data;' \
@@ -738,10 +730,15 @@ Following are optional parameters that could be set as part of the request body.
 
 | parameter | Body or Header | value| default| description |
 |---|---|:---:|:---:|---|
-| referenceId | Header |String|null|`referenceId` is an identifier for the API call and is echoed back by the server in the response. This referenceId can be used to create logical grouping of single/multiple API calls based on business logic of the consumer of API|
-| uuid | Header | String | null | If `uuid` is present in the headers of the API call, response will include an `X-Response-Signature` header which will have a checksum of the response body signed with `uuid` sent in the request and a private key(whose public key will be provided by HyperVerge). This is an advanced feature designed to prevent tampering of response by a man in the middle. For more details on implementation of this feature, please contact your Point of Contact from HyperVerge|
-| outputImageUrl | Body | "yes"/"no" | "no" | If set to "yes" `string`, a signed temporary url be will generated. The output image will be cropped to contain only the region of interest in the image, the document will also be aligned.Strongly advice users to not set the parameter to true unless required. HyperVerge does not want to store user's data beyond the processing time. |
-| enableDashboard| Body | "yes"/"no" | "no" | This will give access to an exclusive dashboard built by HyperVerge for Quality Check and debugging purpose. This dashboard will enable realtime usage monitoring and can be used to pin-point integration issues in production(if any) |
+| referenceId | Header |String|null|`referenceId` is an identifier for the API call and is echoed back by the server in the response. This referenceId can be used to create logical grouping of single/multiple API calls based on business logic of the consumer of API. HyperVerge's QC dashboard can be used to fetch logs grouped by the Reference ID|
+| uuid | Header | String | null | This is an advanced feature designed to prevent tampering of response by a man in the middle. If `uuid` is set, the response will include an `X-Response-Signature` header which will have a checksum of the response body signed with the `uuid` and a private key|
+| enableDashboard| Body | "yes"/"no" | "no" | This will give access to an exclusive dashboard built by HyperVerge for Quality Check and debugging purpose. This dashboard will enable realtime usage monitoring and can be used to pin-point integration issues in POC/production(if any) |
+|qualityCheck|Body|"yes"/"no"|"no"|This will detect if an ID card is black and white. Currently, this feature is available only for PAN and Aadhaar cards|
+|faceCheck|Body|"yes"/"no"|"no"|This will check if a face is present in the document. This works for the front side of all 4 documents supported. The body would have an extra 'face' parameter|
+|outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.|
+|maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
+
+For more details regarding any of the above features, please contact your POC from HyperVerge.
 
 ## API wrappers and sample code (Beta)
 1. [Python](samples/python/)
