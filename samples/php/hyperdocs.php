@@ -8,7 +8,7 @@
 	**/
 	function request_method($filePath, $inputType, $endPoint){
 		$CONFIG_FILE_PATH = "./config.json";
-		$SERVER_PATH_PREFIX = "https://docs.hyperverge.co/v2.0/";
+		$SERVER_PATH_PREFIX = "https://ind-docs.hyperverge.co/v2.0/";
 		$configStr = file_get_contents($CONFIG_FILE_PATH);
 		$config = json_decode($configStr, true);
 		$appId = $config["appId"];
