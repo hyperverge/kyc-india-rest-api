@@ -19,6 +19,7 @@ This documentation describes KYC India API v2.0. The postman collection can be f
 		- [Response Details Schema](#response-details-schema)
 	- [Optional parameters](#optional-parameters)
 	- [API wrappers and sample code (Beta)](#api-wrappers-and-sample-code-beta)
+	- [Unofficial CLI Tools](#unofficial-cli-tools)
 
 
 ## Schema
@@ -745,3 +746,6 @@ For more details regarding any of the above features, please contact your POC fr
 2. [Node.js](samples/node.js/)
 3. [Java](samples/java)
 4. [PHP](samples/php)
+
+## Unofficial CLI Tools
+1. [Hyperverge CLI](https://www.npmjs.com/package/hyperverge)
