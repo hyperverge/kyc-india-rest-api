@@ -3,7 +3,7 @@
 
 ## Overview
 
-This documentation describes KYC India API v2.0. The postman collection can be found at this [link](https://www.getpostman.com/collections/d4ed2fc6f5f2469479a2).
+This documentation describes KYC India API v2.0. The postman collection can be found at this [link](https://www.getpostman.com/collections/e83a04bf0e906d5f1581).
 
 - [HyperVerge India KYC API Documentation](#hyperverge-india-kyc-api-documentation)
 	- [Overview](#overview)
@@ -736,7 +736,8 @@ Following are optional parameters that could be set as part of the request body.
 |qualityCheck|Body|"yes"/"no"|"no"|This will detect if an ID card is black and white. Currently, this feature is available only for PAN and Aadhaar cards|
 |faceCheck|Body|"yes"/"no"|"no"|This will check if a face is present in the document. This works for the front side of all 4 documents supported. The body would have an extra 'face' parameter|
 |outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.|
-|maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
+|maskAadhaarComplete|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
+|maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the last 8 characters of Aadhaar number masked|
 
 For more details regarding any of the above features, please contact your POC from HyperVerge.
 
