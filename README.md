@@ -738,6 +738,35 @@ Following are optional parameters that could be set as part of the request body.
 |outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.|
 |maskAadhaarComplete|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
 |maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the last 8 characters of Aadhaar number masked|
+| usePinDB         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| disableQR         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| maskAadhaarText         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| returnOnlyImage         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| outputImageBase64         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| expandQR         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| allowOnlyHorizontal         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| allowOnlyCompleteCard         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| allowOnlyLiveDocument         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| rejectPhotoOnPhoto         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| detectMinor         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| rejectBlur         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| detectPANSignature         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+| readBarcode         | Body           | "yes"/"no" |  "no"   | Description                                                                                                                                                             |
+
+    appId: req.body.appId || req.headers.appid,
+    id: req.id,
+    url: req.body.url,
+    imagePath: req.body.imagePath,
+    pdfPath: req.body.pdfPath,
+    document: req.body.document,
+    inputImageUpload: ((req.body.inputImageUpload === 'yes') || (req.body.enableDashboard === 'yes')) && DATA_LOGGING_BLACKLIST.indexOf(req.headers.appid) === -1,
+
+    conf: req.body.conf === 'yes',
+    time: res.logger.req.time,
+    version,
+    verify: req.body.verify,
+    debug: req.body.debug === 'yes' && (req.headers.appid === 'demoHV' || req.body.appId === 'demoHV'),
+
 
 For more details regarding any of the above features, please contact your POC from HyperVerge.
 
