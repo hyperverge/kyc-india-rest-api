@@ -738,34 +738,25 @@ Following are optional parameters that could be set as part of the request body.
 |outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.|
 |maskAadhaarComplete|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
 |maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the last 8 characters of Aadhaar number masked|
-| usePinDB         | Body           | "yes"/"no" |  "no"   | ? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                            |
-| disableQR         | Body           | "yes"/"no" |  "no"   | ? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                                 |
-| maskAadhaarText         | Body           | "yes"/"no" |  "yes"   | After the ctpn result is achieved recognition result returns maskedAadhaartext.                                                                                                                                                              |
-| returnOnlyImage         | Body           | "yes"/"no" |  "yes"   | ? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                                      |
-| outputImageBase64         | Body           | "yes"/"no" |  "yes"   | getBase64FaceImageIfPresent function used.                                                                                                                                                           |
-| expandQR         | Body           | "yes"/"no" |  "yes"   | ? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                                    |
-| allowOnlyHorizontal         | Body           | "yes"/"no" |  "yes"   | Only horizontal documents to be sent to ctpn queue for processing.                                                                                                                                                       |
-| allowOnlyCompleteCard         | Body           | "yes"/"no" |  "yes"   | ? Only complete cards are valid for processing.                                                                                                                                              |
-| allowOnlyLiveDocument         | Body           | "yes"/"no" |  "yes"   |  Only live photos of an individual are valid for processing.                                                                                                                                                            |
-| rejectPhotoOnPhoto         | Body           | "yes"/"no" |  "yes"   | If the user takes the photo of a photo then the detection request is supposed to reject that image.  |
-| detectMinor         | Body           | "yes"/"no" |  "Yes"   | ? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                            |
-| rejectBlur         | Body           | "yes"/"no" |  "yes"   | The detection result tells if the image is blurry or not. This info is passed to the ctpn request to reject blurry images.                                                                                                                                                            |
-| detectPANSignature         | Body           | "yes"/"no" |  "yes"   | The pan signature is detected by default after the ctpn result is achieved.                                                                                                                                                        |
-| readBarcode         | Body           | "yes"/"no" |  !"no"   | The card's Barcode is read for recognition after the ctpn result is achieved.                                                                                                                                                          |
+| usePinDB         | Body           | "yes"/"no" |  "no"   | ??? passed in getRecognitionRequest() sent after ctpn result is achieved.                                                                                                                                                            |
+| disableQR         | Body           | "yes"/"no" |  "no"   | This will disable the QR present on the document                                                                                                                                                           |
+| maskAadhaarText         | Body           | "yes"/"no" |  "yes"   | This will mask the text present in Aadhasr                                                                                                                                                            |
+| returnOnlyImage         | Body           | "yes"/"no" |  "yes"   | This will return only Image                                                                                                                                                           |
+| outputImageBase64         | Body           | "yes"/"no" |  "yes"   | This will output the image in format Base64                                                                                                                                                    |
+| expandQR         | Body           | "yes"/"no" |  "yes"   | This will expand the QR present in the document                                                                                                                                                               |
+| allowOnlyHorizontal         | Body           | "yes"/"no" |  "yes"   | This will allow only horizontal images                                                                                                                                          |
+| allowOnlyCompleteCard         | Body           | "yes"/"no" |  "yes"   | This will allow only complete cards to be processed                                                                                                                                           |
+| allowOnlyLiveDocument         | Body           | "yes"/"no" |  "yes"   |  This will allow only live document to be processed                                                                                                                                    |
+| rejectPhotoOnPhoto         | Body           | "yes"/"no" |  "yes"   | This will reject if photo is present upon another photo |
+| detectMinor         | Body           | "yes"/"no" |  "yes"   | This will detect if the information pertains to a minor                                                                                                                                                    |
+| rejectBlur         | Body           | "yes"/"no" |  "yes"   | This will reject if the image is blurred                                                                                                                           |
+| detectPANSignature         | Body           | "yes"/"no" |  "yes"   | This will detect the Pan signature present                                                                                                                                                  |
+| readBarcode         | Body           | "yes"/"no" |  "yes"   | This will read the barcode present on the card                                                                                                                                                       |
 
-    appId: req.body.appId || req.headers.appid,
-    id: req.id,
-    url: req.body.url,
-    imagePath: req.body.imagePath,
-    pdfPath: req.body.pdfPath,
-    document: req.body.document,
+
     inputImageUpload: ((req.body.inputImageUpload === 'yes') || (req.body.enableDashboard === 'yes')) && DATA_LOGGING_BLACKLIST.indexOf(req.headers.appid) === -1,
+     verify: req.body.verify,
 
-    conf: req.body.conf === 'yes',
-    time: res.logger.req.time,
-    version,
-    verify: req.body.verify,
-    debug: req.body.debug === 'yes' && (req.headers.appid === 'demoHV' || req.body.appId === 'demoHV'),
 
 
 For more details regarding any of the above features, please contact your POC from HyperVerge.
