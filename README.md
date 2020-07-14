@@ -728,16 +728,29 @@ Each details object for the supported document types will have below mentioned s
 
 Following are optional parameters that could be set as part of the request body.
 
-| parameter | Body or Header | value| default| description |
-|---|---|:---:|:---:|---|
-| referenceId | Header |String|null|`referenceId` is an identifier for the API call and is echoed back by the server in the response. This referenceId can be used to create logical grouping of single/multiple API calls based on business logic of the consumer of API. HyperVerge's QC dashboard can be used to fetch logs grouped by the Reference ID|
-| uuid | Header | String | null | This is an advanced feature designed to prevent tampering of response by a man in the middle. If `uuid` is set, the response will include an `X-Response-Signature` header which will have a checksum of the response body signed with the `uuid` and a private key|
-| enableDashboard| Body | "yes"/"no" | "no" | This will give access to an exclusive dashboard built by HyperVerge for Quality Check and debugging purpose. This dashboard will enable realtime usage monitoring and can be used to pin-point integration issues in POC/production(if any) |
-|qualityCheck|Body|"yes"/"no"|"no"|This will detect if an ID card is black and white. Currently, this feature is available only for PAN and Aadhaar cards|
-|faceCheck|Body|"yes"/"no"|"no"|This will check if a face is present in the document. This works for the front side of all 4 documents supported. The body would have an extra 'face' parameter|
-|outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.|
-|maskAadhaarComplete|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked|
-|maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the last 8 characters of Aadhaar number masked|
+| parameter | Body or Header | value| default| description | Works on | 
+|---|---|:---:|:---:|---|---|
+| referenceId | Header |String|null|`referenceId` is an identifier for the API call and is echoed back by the server in the response. This referenceId can be used to create logical grouping of single/multiple API calls based on business logic of the consumer of API. HyperVerge's QC dashboard can be used to fetch logs grouped by the Reference ID| Aadhar, PAN, Passport, Driving License, Voter ID. |
+| uuid | Header | String | null | This is an advanced feature designed to prevent tampering of response by a man in the middle. If `uuid` is set, the response will include an `X-Response-Signature` header which will have a checksum of the response body signed with the `uuid` and a private key| Aadhar, PAN, Passport, Driving License, Voter ID. |
+| enableDashboard| Body | "yes"/"no" | "no" | This will give access to an exclusive dashboard built by HyperVerge for Quality Check and debugging purpose. This dashboard will enable realtime usage monitoring and can be used to pin-point integration issues in POC/production(if any) | Aadhar, PAN, Passport, Driving License, Voter ID. |
+|qualityCheck|Body|"yes"/"no"|"no"|This will detect if an ID card is black and white. Currently, this feature is available only for PAN and Aadhaar cards|Aadhar, PAN|
+|faceCheck|Body|"yes"/"no"|"no"|This will check if a face is present in the document. This works for the front side of all 4 documents supported. The body would have an extra 'face' parameter| Aadhar, PAN, Passport, Driving License, Voter ID. |
+|outputImageUrl|Body|"yes"/"no"|"no"|When set to "yes", the response body would have an extra "url" parameter which contains a cropped and aligned image of the document. The url expires in 15 minutes.| Aadhar, PAN, Passport, Driving License, Voter ID. |
+|maskAadhaarComplete|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the Aadhaar number masked| Aadhar |
+|maskAadhaar|Body|"yes"/"no"|"no"|If set to "yes" along with 'outputImageUrl', the image in the url would also have the last 8 characters of Aadhaar number masked| Aadhar |
+| disableQR         | Body           | "yes"/"no" |  "no"   | This will disable the QR present on the document.                                                                                                                                                           | Aadhar |
+| maskAadhaarText         | Body           | "yes"/"no" |  "no"   | This will mask the text present in Aadhaar in additon to masking the image.                                                                                                                                                            | Aadhar |
+| outputImageBase64         | Body           | "yes"/"no" |  "no"   | This will output the image in format Base64. It's an alternate parameter to outputImageUrl.                                                                                                                                                | Aadhar, PAN, Passport, Driving License, Voter ID. |
+| expandQR         | Body           | "yes"/"no" |  "no"   | This will read the QR code present in the document and append the output in response.                                                                                                                                                            | Aadhar |
+| allowOnlyHorizontal         | Body           | "yes"/"no" |  "no"   | This will allow only horizontal images .                                                                                                                                   | Aadhar, PAN, Passport, Driving License, Voter ID. |
+| allowOnlyCompleteCard         | Body           | "yes"/"no" |  "no"   | This will allow only complete cards to be processed. Allows only entire image.                                                                                                                                          | Aadhar |
+| allowOnlyLiveDocument         | Body           | "yes"/"no" |  "no"   |  This will allow only live document to be processed                                                                                                                                    |  Aadhar |
+| rejectPhotoOnPhoto         | Body           | "yes"/"no" |  "no"   | This will reject if photo is present upon another photo |  Aadhar |
+| detectMinor         | Body           | "yes"/"no" |  "no"   | This will detect if the card belongs to a minor                                                                                                                                                  | PAN |
+| rejectBlur         | Body           | "yes"/"no" |  "no"   | This will reject if the image is blurred.                                                                                                                       | Aadhar, PAN, Passport, Driving License, Voter ID. |
+| detectPANSignature         | Body           | "yes"/"no" |  "no"   | This will detect the Pan signature present of the card.                                                                                                                                                 | PAN |
+| readBarcode         | Body           | "yes"/"no" |  "no"   | This will read the barcode present on the card.                                                                                                                                                       | Aadhar |
+
 
 For more details regarding any of the above features, please contact your POC from HyperVerge.
 
