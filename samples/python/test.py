@@ -7,4 +7,11 @@ from hyperdocs import requestFn
 # Though readKYC works on all documents. Use the appropriate endPoint if the document
 # type is known as this would provide a marginally higher accuracy and better
 # performance.
-print(requestFn("./sample.jpg", "image", "readKYC"))
+print(requestFn("./sample.jpg", "image",
+    {"referenceId": "my-reference-id"},
+    {
+        "enableDashboard": "yes"
+    },
+    "readKYC"
+    )
+)
